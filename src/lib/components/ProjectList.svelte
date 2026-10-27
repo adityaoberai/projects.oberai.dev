@@ -32,15 +32,16 @@
 	meta="{items.length} {items.length === 1 ? 'item' : 'items'}"
 >
 	<div class="row head" aria-hidden="true">
-		<span>#</span><span class="mode">mode</span><span class="kind">kind</span><span class="name"
-			>name</span
-		><span class="about">about</span>
+		<span>#</span><span class="mode">mode</span><span class="year">year</span><span class="kind"
+			>kind</span
+		><span class="name">name</span><span class="about">about</span>
 	</div>
 	<ul>
 		{#each items as p, i (p.slug)}
 			<li class="row" class:current={shell.current() === p.slug} data-stagger style="--i: {i}">
 				<span class="n">{number(p)}</span>
 				<span class="mode" aria-hidden="true">drwxr-xr-x</span>
+				<span class="year">{p.year}</span>
 				<span class="kind">{p.kind}</span>
 				<a class="name" href="/{p.slug}/" onclick={runOnClick(shell, `cat ${p.slug}`)}
 					>{#each parts(p.slug) as part, j (j)}{#if part.hit}<mark>{part.text}</mark
@@ -65,7 +66,7 @@
 	.row {
 		position: relative;
 		display: grid;
-		grid-template-columns: 2ch 10ch 11ch 20ch minmax(0, 1fr);
+		grid-template-columns: 2ch 10ch 4ch 11ch 20ch minmax(0, 1fr);
 		gap: 2.5ch;
 		padding: 0.3em 1ch;
 		margin: 0 -1ch;
@@ -85,6 +86,10 @@
 	.n,
 	.mode {
 		color: var(--faint);
+	}
+
+	.year {
+		color: var(--muted);
 	}
 
 	.kind {
@@ -145,7 +150,8 @@
 			display: none;
 		}
 
-		.mode {
+		.mode,
+		.year {
 			display: none;
 		}
 

@@ -19,7 +19,7 @@
 	<article>
 		<header data-stagger style="--i: 0">
 			<h2><span class="hash" aria-hidden="true">{'# '}</span>{project.name}</h2>
-			<span class="kind">[{project.kind}]</span>
+			<span class="kind">[{project.kind} · {project.year}]</span>
 		</header>
 		<p class="overview" data-stagger style="--i: 1">{project.overview}</p>
 
@@ -28,10 +28,12 @@
 				<dt>## why</dt>
 				<dd>{project.motivation}</dd>
 			</div>
-			<div data-stagger style="--i: 3">
-				<dt>## outcome</dt>
-				<dd class="outcome"><span aria-hidden="true">{'✓ '}</span>{project.outcome}</dd>
-			</div>
+			{#if project.outcome}
+				<div data-stagger style="--i: 3">
+					<dt>## outcome</dt>
+					<dd class="outcome"><span aria-hidden="true">{'✓ '}</span>{project.outcome}</dd>
+				</div>
+			{/if}
 			<div data-stagger style="--i: 4">
 				<dt>## stack</dt>
 				<dd>

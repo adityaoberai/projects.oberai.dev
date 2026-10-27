@@ -13,7 +13,7 @@
 	// Split each row into runs so the solid blocks and their shadow take different colors.
 	const rows = logo.map((row) => row.match(/█+|[^█]+/g) ?? []);
 
-	const header = `${site.user}@${site.host}`;
+	const header = `${site.user}@${site.hostname}`;
 	const info: { key: string; value: string; href?: string }[] = [
 		{ key: 'Owner', value: site.name },
 		{ key: 'Role', value: site.role },
@@ -34,7 +34,7 @@
 
 	<div class="info">
 		<p class="head" data-stagger style="--i: 0">
-			<span class="user">{site.user}</span>@<span class="host">{site.host}</span>
+			<span class="user">{site.user}</span>@<span class="host">{site.hostname}</span>
 		</p>
 		<p class="rule" aria-hidden="true" data-stagger style="--i: 1">{'─'.repeat(header.length)}</p>
 		<dl>

@@ -295,8 +295,8 @@
 
 {#snippet ps1()}
 	<span class="ps1" aria-hidden="true"
-		><span class="user">{site.user}@{site.host}</span><span class="sep">:</span><span class="cwd"
-			>~</span
+		><span class="user">{site.user}@{site.hostname}</span><span class="sep">:</span><span
+			class="cwd">~</span
 		><span class="sep">$</span></span
 	>
 {/snippet}
@@ -310,7 +310,7 @@
 	<header class="titlebar">
 		<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
 		<p class="title">
-			{site.user}@{site.host}: {project ? `~/projects/${project.slug}` : '~'}
+			{site.user}@{site.hostname}: {project ? `~/projects/${project.slug}` : '~'}
 			<span class="dim">— zsh</span>
 		</p>
 		<a class="home" href={site.home} {...external}
@@ -324,9 +324,9 @@
 		{#if motd}
 			<aside class="motd" aria-label="Message of the day">
 				<span class="tag" aria-hidden="true">motd</span>
-				<p>The portfolio moved to <a href={site.home}>adityaoberai.com</a>.</p>
+				<p>Looking for the portfolio? It lives at <a href={site.home}>adityaoberai.com</a>.</p>
 				<p class="muted">
-					{site.host} now runs the developer projects. Type
+					This machine only runs the developer projects. Type
 					<button type="button" onclick={() => exec('portfolio')}>portfolio</button> to head over.
 				</p>
 			</aside>

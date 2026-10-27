@@ -3,8 +3,9 @@
 	import Terminal from '$lib/components/Terminal.svelte';
 	import { portfolioPaths, projects } from '$lib/data';
 
-	// oberai.dev used to host the portfolio, so old links still arrive here. Paths the
-	// portfolio serves forward to adityaoberai.com; /projects/<slug> opens the project here.
+	// oberai.dev used to host the portfolio, so its old links can arrive here when that domain
+	// points at this site. Paths the portfolio serves forward to adityaoberai.com;
+	// /projects/<slug> opens the project here.
 	const path = page.url.pathname.replace(/\/+$/, '') || '/';
 	const [first = '', second] = path.split('/').filter(Boolean);
 	const boot =

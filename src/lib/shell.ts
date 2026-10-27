@@ -107,7 +107,7 @@ const single = <T>(items: T[]) => (items.length === 1 ? items[0] : undefined);
 
 export function matches(p: Project, query: string) {
 	const q = query.toLowerCase();
-	return [p.slug, p.name, p.kind, p.overview, ...p.technologies].some((s) =>
+	return [p.slug, p.name, p.kind, String(p.year), p.overview, ...p.technologies].some((s) =>
 		s.toLowerCase().includes(q)
 	);
 }
