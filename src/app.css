@@ -1,0 +1,203 @@
+/* Dark is the default; light follows the system or `theme light`. */
+:root {
+	color-scheme: dark;
+	--page: #070807;
+	--dot: #1f231f;
+	--bg: #0c0d0c;
+	--fg: #dcdfd8;
+	--muted: #8a9088;
+	--faint: #555b54;
+	--line: #262a26;
+	--line-strong: #3b403b;
+	--hover: #161916;
+	--red: #ff7b72;
+	--yellow: #f0c674;
+	--green: #8fd694;
+	--cyan: #7fd1d1;
+	--blue: #82aaff;
+	--magenta: #d7a0f0;
+
+	--gutter: clamp(10px, 3vw, 40px);
+	--bar-h: 2.4rem;
+}
+
+@media (prefers-color-scheme: light) {
+	:root:not([data-theme='dark']) {
+		color-scheme: light;
+		--page: #e7e6df;
+		--dot: #cfcec5;
+		--bg: #f7f6f1;
+		--fg: #1e221f;
+		--muted: #5c635d;
+		--faint: #9aa098;
+		--line: #dcdcd3;
+		--line-strong: #b4b7ad;
+		--hover: #ecebe4;
+		--red: #c0392b;
+		--yellow: #8a5a00;
+		--green: #2e7d32;
+		--cyan: #0f7880;
+		--blue: #2556c4;
+		--magenta: #8d3fa8;
+	}
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+	--page: #e7e6df;
+	--dot: #cfcec5;
+	--bg: #f7f6f1;
+	--fg: #1e221f;
+	--muted: #5c635d;
+	--faint: #9aa098;
+	--line: #dcdcd3;
+	--line-strong: #b4b7ad;
+	--hover: #ecebe4;
+	--red: #c0392b;
+	--yellow: #8a5a00;
+	--green: #2e7d32;
+	--cyan: #0f7880;
+	--blue: #2556c4;
+	--magenta: #8d3fa8;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--page);
+}
+
+body {
+	margin: 0;
+	color: var(--fg);
+	background: var(--page) radial-gradient(var(--dot) 1px, transparent 1.5px) 0 0 / 22px 22px;
+	font-family: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: clamp(13px, 0.35vw + 11.5px, 15px);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+a {
+	color: inherit;
+	text-underline-offset: 0.2em;
+}
+
+button {
+	padding: 0;
+	color: inherit;
+	font: inherit;
+	text-align: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
+:focus-visible {
+	outline: 1px solid var(--green);
+	outline-offset: 2px;
+}
+
+::selection {
+	color: var(--bg);
+	background: var(--green);
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/*
+ * Boot timeline. Terminal sets --line-at, --type-at, --type-for, --reveal-at, and --chars on
+ * each boot entry; output rows marked data-stagger appear one after another via --i.
+ * Base styles are the finished state, so skipping or reduced motion just drops the animation.
+ */
+.boot .cmdline {
+	animation: appear 0s var(--line-at) both;
+}
+
+.boot .typed {
+	position: relative;
+	display: inline-block;
+}
+
+.boot .typed .text {
+	animation: type var(--type-for) steps(var(--chars), start) var(--type-at) both;
+}
+
+.boot .typed .cursor {
+	position: absolute;
+	top: 0.2em;
+	left: 0;
+	width: 1ch;
+	height: 1.2em;
+	visibility: hidden;
+	background: var(--green);
+	animation:
+		cursor-move var(--type-for) steps(var(--chars), start) var(--type-at) backwards,
+		cursor-life calc(var(--type-at) - var(--line-at) + var(--type-for)) linear var(--line-at);
+}
+
+.boot .output {
+	animation: appear 0s var(--reveal-at) both;
+}
+
+.boot [data-stagger] {
+	animation: appear 0s calc(var(--reveal-at) + var(--i, 0) * 45ms) both;
+}
+
+.skip .boot,
+.skip .boot * {
+	animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.boot,
+	.boot * {
+		animation: none !important;
+	}
+}
+
+@keyframes appear {
+	from {
+		visibility: hidden;
+	}
+}
+
+@keyframes type {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0);
+	}
+}
+
+@keyframes cursor-move {
+	from {
+		left: 0;
+	}
+	to {
+		left: 100%;
+	}
+}
+
+@keyframes cursor-life {
+	from,
+	to {
+		visibility: visible;
+	}
+}
